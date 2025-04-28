@@ -1,0 +1,21 @@
+---
+- name: Clone the Node.js repo
+  git:
+    repo: 'https://github.com/yourusername/yourrepo.git'
+    dest: /opt/node-app
+    version: main
+    force: yes
+
+- name: Install app dependencies
+  npm:
+    path: /opt/node-app
+    production: yes
+
+- name: Start app with pm2
+  shell: |
+    npm install -g pm2
+    pm2 start /opt/node-app/server.js --name node-app
+    pm2 save
+    pm2 startup systemd
+    systemctl enable pm2-root
+    systemctl start pm2-root

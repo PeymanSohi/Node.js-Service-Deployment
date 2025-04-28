@@ -1,0 +1,16 @@
+---
+- name: Update apt
+  apt:
+    update_cache: yes
+
+- name: Install Node.js and npm
+  apt:
+    name: 
+      - nodejs
+      - npm
+    state: present
+
+- name: Install git
+  apt:
+    name: git
+    state: present
